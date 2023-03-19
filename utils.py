@@ -219,7 +219,7 @@ def predict_all(history, inputs, chatbot, all_token_counts, top_p, temperature, 
     return chatbot, history, status_text, all_token_counts
 
 
-def predict(history, inputs, chatbot, all_token_counts, top_p, temperature, stream=False, selected_model = MODELS[0], use_websearch_checkbox = False, should_check_token_count = True):  # repetition_penalty, top_k
+def predict(history, inputs, chatbot, all_token_counts, top_p, temperature, selected_model = MODELS[0], stream = True, use_websearch_checkbox = False, should_check_token_count = True):  # repetition_penalty, top_k
     logging.info("输入为：" +colorama.Fore.BLUE + f"{inputs}" + colorama.Style.RESET_ALL)
     if use_websearch_checkbox:
         results = ddg(inputs, max_results=3)
@@ -258,7 +258,7 @@ def predict(history, inputs, chatbot, all_token_counts, top_p, temperature, stre
             yield chatbot, history, status_text, all_token_counts
 
 
-def retry(history, chatbot, token_count, top_p, temperature, stream=False, selected_model = MODELS[0]):
+def retry(history, chatbot, token_count, top_p, temperature, selected_model = MODELS[0]):
     logging.info("重试中……")
     if len(history) == 0:
         yield chatbot, history, f"{standard_error_msg}上下文是空的", token_count
@@ -266,22 +266,22 @@ def retry(history, chatbot, token_count, top_p, temperature, stream=False, selec
     history.pop()
     inputs = history.pop()["content"]
     token_count.pop()
-    iter = predict(history, inputs, chatbot, token_count, top_p, temperature, stream=stream, selected_model=selected_model)
+    iter = predict(history, inputs, chatbot, token_count, top_p, temperature, selected_model=selected_model)
     logging.info("重试完毕")
     for x in iter:
         yield x
 
 
-def reduce_token_size(history, chatbot, token_count, top_p, temperature, stream=False, selected_model = MODELS[0], hidden=False):
+def reduce_token_size(history, chatbot, token_count, top_p, temperature, selected_model = MODELS[0], hidden=False):
     logging.info("开始减少token数量……")
-    iter = predict(history, summarize_prompt, chatbot, token_count, top_p, temperature, stream=stream, selected_model = selected_model, should_check_token_count=False)
+    iter = predict(history, summarize_prompt, chatbot, token_count, top_p, temperature, selected_model = selected_model, should_check_token_count=False)
     logging.info(f"chatbot: {chatbot}")
     for chatbot, history, status_text, previous_token_count in iter:
         history = history[-2:]
         token_count = previous_token_count[-1:]
         if hidden:
             chatbot.pop()
-        yield chatbot, history, construct_token_message(sum(token_count), stream=stream), token_count
+        yield chatbot, history, construct_token_message(sum(token_count), stream=True), token_count
     logging.info("减少token数量完毕")
 
 def sorted_by_pinyin(list):

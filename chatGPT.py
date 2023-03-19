@@ -39,22 +39,20 @@ with gr.Blocks(css=customCSS) as demo:
                                         interactive=True, label="Top-p (nucleus sampling)",)
                         temperature = gr.Slider(minimum=-0, maximum=2.0, value=1.0,
                                                 step=0.1, interactive=True, label="Temperature",)
-                    use_streaming_checkbox = gr.Checkbox(label="实时传输回答", value=True, visible=enable_streaming_option)
-                    use_websearch_checkbox = gr.Checkbox(label="使用在线搜索", value=False)
 
     gr.Markdown(description)
 
-    user_input.submit(predict, [history, user_input, chatbot, token_count, top_p, temperature, use_streaming_checkbox, model_select_dropdown, use_websearch_checkbox], [chatbot, history, status_display, token_count], show_progress=True)
+    user_input.submit(predict, [history, user_input, chatbot, token_count, top_p, temperature, model_select_dropdown], [chatbot, history, status_display, token_count], show_progress=True)
     user_input.submit(reset_textbox, [], [user_input])
 
-    submitBtn.click(predict, [history, user_input, chatbot, token_count, top_p, temperature, use_streaming_checkbox, model_select_dropdown, use_websearch_checkbox], [chatbot, history, status_display, token_count], show_progress=True)
+    submitBtn.click(predict, [history, user_input, chatbot, token_count, top_p, temperature, model_select_dropdown], [chatbot, history, status_display, token_count], show_progress=True)
     submitBtn.click(reset_textbox, [], [user_input])
 
     emptyBtn.click(reset_state, outputs=[chatbot, history, token_count, status_display], show_progress=True)
 
-    retryBtn.click(retry, [history, chatbot, token_count, top_p, temperature, use_streaming_checkbox, model_select_dropdown], [chatbot, history, status_display, token_count], show_progress=True)
+    retryBtn.click(retry, [history, chatbot, token_count, top_p, temperature, model_select_dropdown], [chatbot, history, status_display, token_count], show_progress=True)
 
-    reduceTokenBtn.click(reduce_token_size, [history, chatbot, token_count, top_p, temperature, use_streaming_checkbox, model_select_dropdown], [chatbot, history, status_display, token_count], show_progress=True)
+    reduceTokenBtn.click(reduce_token_size, [history, chatbot, token_count, top_p, temperature, model_select_dropdown], [chatbot, history, status_display, token_count], show_progress=True)
     # act_prompts_select_dropdown.change(reset_state, [act_prompts_select_dropdown], [], show_progress=True)
 
 logging.info(colorama.Back.GREEN + "\n访问 http://localhost:7860 查看界面" + colorama.Style.RESET_ALL)
