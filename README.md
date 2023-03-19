@@ -28,4 +28,4 @@
 
 如果一切顺利，现在，你应该已经可以在浏览器地址栏中输入 [`http://localhost:7860`](http://localhost:7860) 查看并使用 ChatGPT 了。
 
-鸣谢 ![ChuanhuChatGPT](https://github.com/GaiZhenbiao/ChuanhuChatGPT)
+鸣谢 [ChuanhuChatGPT](https://github.com/GaiZhenbiao/ChuanhuChatGPT)

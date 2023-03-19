@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-import json
 title = """<h1 align="left" style="min-width:200px; margin-top:0;">ChatGPT</h1>"""
 description = """<div align="center" style="margin:16px 0">
 </div>
@@ -58,7 +57,7 @@ pre code {
 """
 
 summarize_prompt = "你是谁？我们刚才聊了什么？" # 总结对话时的 prompt
-MODELS = ["gpt-3.5-turbo"]#, "gpt-3.5-turbo-0301", "gpt-4","gpt-4-0314", "gpt-4-32k", "gpt-4-32k-0314"] # 可选的模型
+MODELS = ["gpt-3.5-turbo"] #"gpt-3.5-turbo", "gpt-3.5-turbo-0301", "gpt-4","gpt-4-0314", "gpt-4-32k", "gpt-4-32k-0314" # 可选的模型
 # act_prompts = json.load(open('./templates/Prompts.json', 'r', encoding='utf-8'))
 websearch_prompt = """Web search results:
 

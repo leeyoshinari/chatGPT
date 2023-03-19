@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, List, Tuple
 import logging
 import gradio as gr
+import json
 # import openai
 import requests
 # import markdown
@@ -26,6 +27,7 @@ if TYPE_CHECKING:
 initial_prompt = "You are a helpful assistant."
 API_KEY = "sk-A*****"  # 填写API密钥
 API_URL = "https://api.openai.com/v1/chat/completions"
+proxy = {'https': '127.0.0.1:1080'}  # 代理设置
 HISTORY_DIR = "history"
 TEMPLATES_DIR = "templates"
 
@@ -118,7 +120,6 @@ def get_response(history, temperature, top_p, stream, selected_model):
         "presence_penalty": 0,
         "frequency_penalty": 0,
     }
-    proxy = {'https': '127.0.0.1:1080'}
     if stream:
         timeout = timeout_streaming
     else:
