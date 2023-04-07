@@ -1,4 +1,4 @@
-# ChatGPT
+# ChatGPT ![](https://visitor-badge.glitch.me/badge?page_id=leeyoshinari)
 一个比较简洁好用的GPT客户端。调用官方API
 
 ## 功能
